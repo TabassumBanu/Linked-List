@@ -2,14 +2,14 @@
 #include <iostream>
 
 using namespace std;
-
+template <class T>
 class List
 {
     private:
     
     typedef struct node
     {
-        int data;
+        T data;
         struct node* next;
     }* nodePtr;
     
@@ -20,22 +20,24 @@ class List
     public:
     
     List();
-    void addNodeBegin(int addData);
-    void addNodeEnd(int addData);
+    void addNodeBegin(T addData);
+    void addNodeEnd(T addData);
     void deleteNodeBegin();
     void deleteNodeEnd();
     void printList();
     
 };
 
-List::List()
+template <class T>
+List<T>::List()
 {
     Head = NULL;
     Curr = NULL;
     temp = NULL;
 }
 
-void List::deleteNodeEnd()
+template <class T>
+void List<T>::deleteNodeEnd()
 {
     if(Head != NULL)
    {
@@ -46,15 +48,16 @@ void List::deleteNodeEnd()
     }
 }
 
-void List::deleteNodeBegin()
+template <class T>
+void List<T>::deleteNodeBegin()
 {
     if(Head != NULL)
     {
         Head = Head->next;
     }
 }
-
-void List::addNodeEnd(int addData)
+template <class T>
+void List<T>::addNodeEnd(T addData)
 {
    nodePtr newNode = new node;
    newNode->data = addData;
@@ -72,8 +75,8 @@ void List::addNodeEnd(int addData)
         Head = newNode;
     }
 }
-
-void List::addNodeBegin(int addData)
+template <class T>
+void List<T>::addNodeBegin(T addData)
 {
    nodePtr newNode = new node;
    newNode->data = addData;
@@ -89,7 +92,8 @@ void List::addNodeBegin(int addData)
         Head = newNode;
     }
 }
-void List::printList()
+template <class T>
+void List<T>::printList()
 {
     temp = Head;
     cout<<"list output \n";
@@ -103,17 +107,14 @@ void List::printList()
 }
 int main()
 {
-    List l;
+    List<char>l;
+    char str[] = "abacaba";
     int i;
-    
-    for(i=1; i<=10; ++i)
+ 
+    for (i = 0; str[i] != '\0'; i++)
     {
-        l.addNodeBegin(i);
+        l.addNodeEnd(str[i]);
     }
-    ++i;
-    l.addNodeEnd(i);
-    l.deleteNodeBegin();
-    l.deleteNodeEnd();
 
     l.printList();
 
