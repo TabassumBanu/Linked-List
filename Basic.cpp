@@ -1,10 +1,3 @@
-/******************************************************************************
-
-                              Online C++ Compiler.
-               Code, Compile, Run and Debug C++ program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
 
 #include <iostream>
 
@@ -29,8 +22,8 @@ class List
     List();
     void addNodeBegin(int addData);
     void addNodeEnd(int addData);
-    void deleteNodeBegin(int delData);
-    void deleteNodeEnd(int delData);
+    void deleteNodeBegin();
+    void deleteNodeEnd();
     void printList();
     
 };
@@ -42,7 +35,26 @@ List::List()
     temp = NULL;
 }
 
-void List::addNodeBegin(int addData)
+void List::deleteNodeEnd()
+{
+    if(Head != NULL)
+   {
+       Curr = Head;
+       while(Curr->next->next != NULL)
+            Curr = Curr->next;
+        Curr->next = NULL;
+    }
+}
+
+void List::deleteNodeBegin()
+{
+    if(Head != NULL)
+    {
+        Head = Head->next;
+    }
+}
+
+void List::addNodeEnd(int addData)
 {
    nodePtr newNode = new node;
    newNode->data = addData;
@@ -54,6 +66,23 @@ void List::addNodeBegin(int addData)
        while(Curr->next != NULL)
             Curr = Curr->next;
         Curr->next = newNode;
+    }
+    else
+    {
+        Head = newNode;
+    }
+}
+
+void List::addNodeBegin(int addData)
+{
+   nodePtr newNode = new node;
+   newNode->data = addData;
+   newNode->next = NULL;
+   
+   if(Head != NULL)
+   {
+       newNode->next = Head;
+        Head = newNode;
     }
     else
     {
@@ -75,8 +104,17 @@ void List::printList()
 int main()
 {
     List l;
-    for(int i=1; i<=10; i++)
+    int i;
+    
+    for(i=1; i<=10; ++i)
+    {
         l.addNodeBegin(i);
+    }
+    ++i;
+    l.addNodeEnd(i);
+    l.deleteNodeBegin();
+    l.deleteNodeEnd();
+
     l.printList();
 
     return 0;
